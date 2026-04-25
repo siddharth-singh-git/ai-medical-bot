@@ -1,6 +1,8 @@
 sentence-transformers==2.2.2
 langchain
 langchain-community
+langchain-huggingface
+langchain-google-genai
 flask
 pypdf
 python-dotenv
