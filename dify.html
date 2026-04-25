@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dify Chatbot</title>
+
+    <!-- Chatbot Config -->
+    <script>
+      window.difyChatbotConfig = {
+        token: "Z4v2ER3eR65Xoviy",
+
+        inputs: {
+          // Example:
+          // name: "Goku"
+        },
+
+        systemVariables: {
+          // user_id: "user_123",
+          // conversation_id: "uuid-here"
+        },
+
+        userVariables: {
+          // avatar_url: "https://example.com/avatar.png",
+          // name: "User"
+        },
+      };
+    </script>
+
+    <!-- Chatbot Script -->
+    <script
+      src="https://udify.app/embed.min.js"
+      id="Z4v2ER3eR65Xoviy"
+      defer
+    ></script>
+
+    <!-- Optional Styling -->
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #dify-chatbot-bubble-button {
+        background-color: #1c64f2 !important;
+      }
+
+      #dify-chatbot-bubble-window {
+        width: 24rem !important;
+        height: 40rem !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 style="padding: 20px">My Website with AI Chatbot</h2>
+    <p style="padding: 20px">
+      Click the chat icon at the bottom-right corner to start chatting.
+    </p>
+  </body>
+</html>
