@@ -1,16 +1,28 @@
+# new - from langchain.chains import create_retrieval_chain
+#from langchain_classic.chains import create_retrieval_chain
+#new- from langchain.chains.combine_documents import create_stuff_documents_chain
+#from langchain_classic.chains.combine_documents import create_stuff_documents_chain
+
+
+
+
+
 from flask import Flask, render_template, jsonify, request
 from src.helper import download_HuggingFace
 from langchain_pinecone import Pinecone
 from langchain_google_genai import ChatGoogleGenerativeAI
-# new - from langchain.chains import create_retrieval_chain
-from langchain_classic.chains import create_retrieval_chain
-#new- from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_classic.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 from src.prompt import *
 import os
 from sentence_transformers import SentenceTransformer
+from langchain_core.runnables import RunnablePassthrough
+
+
+
+from langchain_core.output_parsers import StrOutputParser
+
+
 
 app = Flask(__name__)
 
@@ -42,10 +54,16 @@ prompt=ChatPromptTemplate.from_messages([
     ("system", system_prompt),
     ("human","{input}")])
 
+def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
 
-question_answer_chain = create_stuff_documents_chain(llm, prompt)
-rag_chain = create_retrieval_chain(retriever, question_answer_chain)
-
+rag_chain = (
+    {
+        "context": input | retriever | format_docs,
+        "input": input,
+    }
+    | prompt | llm | StrOutputParser()
+)
 
 @app.route("/")
 def index():
@@ -59,7 +77,7 @@ def chat():
     print(input)
     response = rag_chain.invoke({"input": msg})
     print("Response : ", response["answer"])
-    return str(response["answer"])
+    return str(response("answer"))
 
 
 

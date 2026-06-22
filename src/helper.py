@@ -29,4 +29,3 @@ def download_HuggingFace():
     return embeddings
 
 
-

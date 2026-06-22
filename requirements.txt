@@ -7,7 +7,7 @@ langchain-google-genai
 flask
 pypdf
 python-dotenv
-pinecone[grpc]
+pinecone
 langchain-pinecone
 langchain_community
 langchain_openai
