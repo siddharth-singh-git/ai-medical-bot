@@ -6,7 +6,6 @@
 
 
 
-
 from flask import Flask, render_template, jsonify, request
 from src.helper import download_HuggingFace
 from langchain_pinecone import Pinecone
@@ -59,8 +58,8 @@ def format_docs(docs):
 
 rag_chain = (
     {
-        "context": input | retriever | format_docs,
-        "input": input,
+        "context": (lambda x: x["input"]) | retriever | format_docs,
+        "input": lambda x: x["input"],
     }
     | prompt | llm | StrOutputParser()
 )
@@ -73,11 +72,11 @@ def index():
 @app.route("/get", methods=["GET", "POST"])
 def chat():
     msg = request.form["msg"]
-    input = msg
-    print(input)
+    print(msg)
     response = rag_chain.invoke({"input": msg})
-    print("Response : ", response["answer"])
-    return str(response("answer"))
+    print("Response : ", response)
+    return response
+
 
 
 

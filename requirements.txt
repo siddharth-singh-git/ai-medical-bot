@@ -1,5 +1,9 @@
-sentence-transformers==2.2.2
+sentence-transformers>=5.1.0
 torch
+transformers>=4.55.0
+huggingface-hub>=0.34.0
+
+
 langchain
 langchain-community
 langchain-huggingface
@@ -14,4 +18,4 @@ langchain_openai
 langchain_experimental 
 langchain-core
 huggingface-hub
--e .
+
